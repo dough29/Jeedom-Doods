@@ -1,11 +1,11 @@
 <?php
-if (!isConnect('admin')) {
-	throw new Exception('{{401 - Accès non autorisé}}');
-}
-// Déclaration des variables obligatoires
-$plugin = plugin::byId('doods');
-sendVarToJS('eqType', $plugin->getId());
-$eqLogics = eqLogic::byType($plugin->getId());
+	if (!isConnect('admin')) {
+		throw new Exception('{{401 - Accès non autorisé}}');
+	}
+	// Déclaration des variables obligatoires
+	$plugin = plugin::byId('doods');
+	sendVarToJS('eqType', $plugin->getId());
+	$eqLogics = eqLogic::byType($plugin->getId());
 ?>
 
 <div class="row row-overflow">
@@ -36,18 +36,18 @@ $eqLogics = eqLogic::byType($plugin->getId());
 		<!-- Liste des équipements du plugin -->
 		<div class="eqLogicThumbnailContainer">
 			<?php
-			foreach ($eqLogics as $eqLogic) {
-				$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
-				echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
-				echo '<br>';
-				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
-				echo '</div>';
-			}
+				foreach ($eqLogics as $eqLogic) {
+					$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+					echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+					echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
+					echo '<br>';
+					echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+					echo '</div>';
+				}
 			?>
 		</div>
 	</div> <!-- /.eqLogicThumbnailDisplay -->
-
+	
 	<!-- Page de présentation de l'équipement -->
 	<div class="col-xs-12 eqLogic" style="display: none;">
 		<!-- barre de gestion de l'équipement -->
@@ -55,9 +55,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			<span class="input-group-btn">
 				<!-- Les balises <a></a> sont volontairement fermées à la ligne suivante pour éviter les espaces entre les boutons. Ne pas modifier -->
 				<a class="btn btn-sm btn-default eqLogicAction roundedLeft" data-action="configure"><i class="fas fa-cogs"></i><span class="hidden-xs"> {{Configuration avancée}}</span>
-				</a><a class="btn btn-sm btn-default eqLogicAction" data-action="copy"><i class="fas fa-copy"></i><span class="hidden-xs">  {{Dupliquer}}</span>
-				</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}
-				</a><a class="btn btn-sm btn-danger eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}
+					</a><a class="btn btn-sm btn-default eqLogicAction" data-action="copy"><i class="fas fa-copy"></i><span class="hidden-xs">  {{Dupliquer}}</span>
+					</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}
+					</a><a class="btn btn-sm btn-danger eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}
 				</a>
 			</span>
 		</div>
@@ -89,11 +89,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
 										<option value="">{{Aucun}}</option>
 										<?php
-										$options = '';
-										foreach ((jeeObject::buildTree(null, false)) as $object) {
-											$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
-										}
-										echo $options;
+											$options = '';
+											foreach ((jeeObject::buildTree(null, false)) as $object) {
+												$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
+											}
+											echo $options;
 										?>
 									</select>
 								</div>
@@ -102,11 +102,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								<label class="col-sm-3 control-label">{{Catégorie}}</label>
 								<div class="col-sm-9">
 									<?php
-									foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-										echo '<label class="checkbox-inline">';
-										echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-										echo '</label>';
-									}
+										foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
+											echo '<label class="checkbox-inline">';
+											echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+											echo '</label>';
+										}
 									?>
 								</div>
 							</div>
@@ -118,12 +118,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 							<br>
-
+							
 							<legend><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">{{Paramètre n°1}}</label>
+								<label class="col-sm-3 control-label">{{URL snapshot}}</label>
 								<div class="col-sm-7">
-									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="param1" placeholder="{{Paramètre n°1}}"/>
+									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="snapshotUrl" placeholder="{{http://<IP caméra>:<port caméra>/<chemin>/<snapshot>.jpg}}"/>
 								</div>
 							</div>
 							<!-- Champ de saisie du cron d'auto-actualisation + assistant cron -->
@@ -144,7 +144,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								</div>
 							</div>
 						</div>
-
+						
 						<!-- Partie droite de l'onglet "Équipement" -->
 						<!-- Affiche l'icône du plugin par défaut mais vous pouvez y afficher les informations de votre choix -->
 						<div class="col-lg-5">
@@ -159,7 +159,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				</form>
 				<hr>
 			</div><!-- /.tabpanel #eqlogictab-->
-
+			
 			<!-- Onglet des commandes de l'équipement -->
 			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<a class="btn btn-default btn-sm pull-right cmdAction" data-action="add" style="margin-top:5px;"><i class="fas fa-plus-circle" style="color:#3F23A4;"></i> {{Ajouter une commande}}</a>
@@ -181,7 +181,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					</table>
 				</div>
 			</div><!-- /.tabpanel #commandtab-->
-
+			
 		</div><!-- /.tab-content -->
 	</div><!-- /.eqLogic -->
 </div><!-- /.row row-overflow -->
