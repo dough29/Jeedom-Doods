@@ -1,0 +1,14 @@
+{
+    "id": "doods",
+    "name": "Doods",
+    "description": "Doods pour Jeedom",
+    "licence": "AGPL",
+    "author": "dough29",
+    "require": "4.1",
+    "category": "programming",
+    "hasDependency": 0,
+    "hasOwnDeamon": 0,
+    "language": ["fr_FR"],
+    "changelog": "http://dough29.github.io/Jeedom-Doods/fr_FR/changelog",
+    "documentation": "http://dough29.github.io/Jeedom-Doods/fr_FR/"
+}
