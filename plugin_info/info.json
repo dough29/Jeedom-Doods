@@ -6,9 +6,8 @@
     "author": "dough29",
     "require": "4.1",
     "category": "programming",
-    "hasDependency": 0,
-    "hasOwnDeamon": 0,
     "language": ["fr_FR"],
+    "compatibility": ["miniplus", "smart", "rpi", "docker", "diy", "mobile", "v4"],
     "changelog": "http://dough29.github.io/Jeedom-Doods/fr_FR/changelog",
     "documentation": "http://dough29.github.io/Jeedom-Doods/fr_FR/"
 }
